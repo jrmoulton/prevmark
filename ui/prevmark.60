@@ -1,0 +1,44 @@
+
+import { ListView } from "sixtyfps_widgets.60";
+
+struct TextElement := {
+    text: string,
+    size: int,
+}
+
+PrevMark := Window {
+    title: "prevmark";
+    min-width: 300px;
+    min-height: 388px;
+    preferred-width: 425pt;
+    preferred-height: 550pt;
+    property <[TextElement]> TextElements: [];
+    document := Rectangle {  
+        property <percent> scale;
+        scale: 98%;
+        width: 98%;
+        height: 98%;
+        background: #FFF;
+        x: (scale/100 * parent.width);
+        y: (scale/100 * parent.height);
+        list_view := ListView {
+            for text_element[i] in TextElements : Text {
+                x: 10pt;
+                width: parent.width - 30pt;
+                wrap: word-wrap;
+                color: #333333;
+                text: text_element.text;
+                font-size: text_element.size * 1px;
+            }
+        }
+    }
+}
+
+/*
+h1 32 px
+h2 24px
+h3 18.72
+h4 16px
+h5 13.28px
+h6 10.72
+ */

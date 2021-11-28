@@ -1,0 +1,14 @@
+[package]
+name = "prevmark"
+version = "0.1.0"
+edition = "2021"
+resolver = "2"
+build = "build.rs"
+
+[dependencies]
+sixtyfps = "0.1.4"
+pulldown-cmark = "0.8.0"
+clap = "3.0.0-beta.5"
+
+[build-dependencies]
+sixtyfps-build = "0.1.4"
