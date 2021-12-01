@@ -1,6 +1,7 @@
 use clap::{App, Arg};
 use pulldown_cmark::{Event, Parser, Tag};
-use sixtyfps::Model;
+use scraper::Html;
+use sixtyfps::{Image, Model, SharedString};
 use std::fs::File;
 use std::io::Read;
 use std::rc::Rc;
@@ -102,7 +103,12 @@ fn main() -> Result<(), std::io::Error> {
                             text: (link.to_string().into()),
                         });
                     }
-                    // Tag::Image(_, _, _) => todo!(),
+                    Tag::Image(_link_type, destination_url, _title) => {
+                        text_model.push(TextElement {
+                            size: (text_properties.size),
+                            text: destination_url.to_string().into(),
+                        })
+                    }
                     _ => (),
                 }
             }
@@ -132,7 +138,9 @@ fn main() -> Result<(), std::io::Error> {
                 dbg!(code);
             }
             Event::Html(html) => {
-                // Now i need to parse the html here... This is complicated
+                // Now i need to parse the html here... This is complicatedhtml5ever
+                let _fragment = Html::parse_fragment(&html);
+
                 text_model.push(TextElement {
                     size: (text_properties.size),
                     text: (html.to_string().into()),

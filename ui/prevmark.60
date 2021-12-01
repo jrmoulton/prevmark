@@ -8,17 +8,17 @@ struct TextElement := {
 
 PrevMark := Window {
     title: "prevmark";
-    min-width: 300px;
-    min-height: 388px;
+    min-width: 300pt;
+    min-height: 388pt;
     preferred-width: 425pt;
     preferred-height: 550pt;
+    property <[string]> Images: [];
     property <[TextElement]> TextElements: [];
     document := Rectangle {  
         property <percent> scale;
         scale: 98%;
         width: 98%;
         height: 98%;
-        background: #FFF;
         x: (scale/100 * parent.width);
         y: (scale/100 * parent.height);
         list_view := ListView {
@@ -26,9 +26,9 @@ PrevMark := Window {
                 x: 10pt;
                 width: parent.width - 30pt;
                 wrap: word-wrap;
-                color: #333333;
                 text: text_element.text;
                 font-size: text_element.size * 1px;
+                font-family: "SF Pro Display, Apple Color Emoji";
             }
         }
     }
