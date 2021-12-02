@@ -12,11 +12,6 @@ struct TextProperties {
     size: i32,
     color: sixtyfps::Color,
 }
-impl TextProperties {
-    fn new(size: i32, color: sixtyfps::Color) -> Self {
-        Self { size, color }
-    }
-}
 
 fn main() -> Result<(), std::io::Error> {
     let matches = App::new("PrevMark")
@@ -33,15 +28,8 @@ fn main() -> Result<(), std::io::Error> {
         .get_matches();
     let path = matches.value_of("path").unwrap(); // unwrapping becuase required
 
-    let md_file = match File::open(path) {
-        Ok(mut file) => {
-            let mut content = String::new();
-            file.read_to_string(&mut content).unwrap();
-            content
-        }
-        Err(e) => return Err(e),
-    };
-
+    let mut md_file = String::new();
+    File::open(path)?.read_to_string(&mut md_file)?;
     let parser = Parser::new(&md_file);
 
     let main_window = PrevMark::new();
