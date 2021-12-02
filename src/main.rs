@@ -10,6 +10,7 @@ sixtyfps::include_modules!();
 #[derive(Debug, Default)]
 struct TextProperties {
     size: i32,
+    weight: sixtyfps::SharedString,
     color: sixtyfps::Color,
 }
 
@@ -54,6 +55,7 @@ fn main() -> Result<(), std::io::Error> {
                     Tag::Heading(level) => match level {
                         1 => {
                             text_properties.size = 32;
+                            text_properties.weight = "Bold".into();
                         }
                         2 => {
                             text_properties.size = 24;
@@ -105,6 +107,7 @@ fn main() -> Result<(), std::io::Error> {
                     Tag::Heading(_) => {
                         // At the end of a heading tag reset the font size back to 12
                         text_properties.size = 12;
+                        text_properties.weight = "Regular".into();
                     }
                     _ => (),
                 }

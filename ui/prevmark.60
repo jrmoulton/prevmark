@@ -15,20 +15,18 @@ PrevMark := Window {
     property <[string]> Images: [];
     property <[TextElement]> TextElements: [];
     document := Rectangle {  
-        property <percent> scale;
-        scale: 98%;
-        width: 98%;
-        height: 98%;
-        x: (scale/100 * parent.width);
-        y: (scale/100 * parent.height);
         list_view := ListView {
+            border-width: 0px;
+            y: 10px;
+            x: 10pt;
             for text_element[i] in TextElements : Text {
-                x: 10pt;
                 width: parent.width - 30pt;
                 wrap: word-wrap;
                 text: text_element.text;
                 font-size: text_element.size * 1px;
-                font-family: "SF Pro Display, Apple Color Emoji";
+                property <string> weight;
+                property <string> font;
+                font-family: "Menlo " + weight + ", Apple Color Emoji";
             }
         }
     }
