@@ -1,5 +1,5 @@
 
-import { ListView } from "sixtyfps_widgets.60";
+import { ScrollView } from "sixtyfps_widgets.60";
 
 struct TextElement := {
     text: string,
@@ -14,20 +14,21 @@ PrevMark := Window {
     preferred-height: 550pt;
     property <[string]> Images: [];
     property <[TextElement]> TextElements: [];
-    document := Rectangle {  
-        list_view := ListView {
-            border-width: 0px;
-            y: 10px;
-            x: 10pt;
-            for text_element[i] in TextElements : Text {
-                width: parent.width - 30pt;
-                wrap: word-wrap;
-                text: text_element.text;
-                font-size: text_element.size * 1px;
-                property <string> weight;
-                property <string> font;
-                font-family: "Menlo " + weight + ", Apple Color Emoji";
-            }
+    property <int> elements_length;
+    document := ScrollView {  
+        viewport-width: root.width - 25px;
+        viewport-height: elements_length * 20px + 20px + root.height;
+        visible-width: viewport-width - 10px;
+        for text_element[i] in TextElements : Text {
+            y: i * 20px + 20px;
+            x: 30px;
+            width: parent.width - 30pt;
+            wrap: word-wrap;
+            text: text_element.text;
+            font-size: text_element.size * 1px;
+            property <string> weight;
+            property <string> font;
+            font-family: "SF Pro Display " + weight;
         }
     }
 }

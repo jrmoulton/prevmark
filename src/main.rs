@@ -1,7 +1,7 @@
 use clap::{App, Arg};
 use pulldown_cmark::{Event, Parser, Tag};
 use scraper::Html;
-use sixtyfps::{Image, Model, SharedString};
+use sixtyfps::Model;
 use std::fs::File;
 use std::io::Read;
 use std::rc::Rc;
@@ -43,6 +43,7 @@ fn main() -> Result<(), std::io::Error> {
         .collect();
     let text_model = Rc::new(sixtyfps::VecModel::from(text_elements));
     let mut text_properties = TextProperties::default();
+    let mut elements_length = 0;
 
     for event in parser {
         match event {
@@ -92,12 +93,14 @@ fn main() -> Result<(), std::io::Error> {
                             size: (text_properties.size),
                             text: (link.to_string().into()),
                         });
+                        elements_length += 1;
                     }
                     Tag::Image(_link_type, destination_url, _title) => {
                         text_model.push(TextElement {
                             size: (text_properties.size),
                             text: destination_url.to_string().into(),
-                        })
+                        });
+                        elements_length += 1;
                     }
                     _ => (),
                 }
@@ -115,6 +118,7 @@ fn main() -> Result<(), std::io::Error> {
                     size: (text_properties.size),
                     text: ("\n".into()),
                 });
+                elements_length += 1;
                 dbg!("End tag");
                 dbg!(tag);
             }
@@ -123,6 +127,7 @@ fn main() -> Result<(), std::io::Error> {
                     size: (text_properties.size),
                     text: (text.to_string().into()),
                 });
+                elements_length += 1;
                 dbg!(text);
             }
             Event::Code(code) => {
@@ -136,6 +141,7 @@ fn main() -> Result<(), std::io::Error> {
                     size: (text_properties.size),
                     text: (html.to_string().into()),
                 });
+                elements_length += 1;
                 dbg!(html);
             }
             Event::FootnoteReference(note) => {
@@ -149,6 +155,7 @@ fn main() -> Result<(), std::io::Error> {
                     size: (text_properties.size),
                     text: ("\n".into()),
                 });
+                elements_length += 1;
                 dbg!("hard break ");
             }
             Event::Rule => {
@@ -163,6 +170,7 @@ fn main() -> Result<(), std::io::Error> {
     main_window_weak
         .unwrap()
         .set_TextElements(sixtyfps::ModelHandle::new(text_model));
+    main_window_weak.unwrap().set_elements_length(elements_length.into());
 
     main_window.run();
     Ok(())
