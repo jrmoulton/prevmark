@@ -4,6 +4,12 @@ version = "0.1.0"
 edition = "2021"
 resolver = "2"
 build = "build.rs"
+description = "A fast, native, cross-platform markdown previewer"
+documentation = "https://docs.rs/prevmark"
+repository = "https://github.com/jrmoulton/prevmark.git"
+homepage = "https://github.com/jrmoulton/prevmark"
+readme = "README.md"
+license = "MIT"
 
 [dependencies]
 sixtyfps = "0.1.5"

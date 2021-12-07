@@ -45,6 +45,9 @@ fn main() -> Result<(), std::io::Error> {
     let mut text_properties = TextProperties::default();
     let mut elements_length = 0;
 
+    let buffer_string = String::new();  // This string will be used as a buffer so that only when we
+                                        // hit a hard break we push a new element to the screen
+
     for event in parser {
         match event {
             Event::Start(tag) => {
