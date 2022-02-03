@@ -28,7 +28,7 @@ PrevMark := Window {
             font-size: text_element.size * 1px;
             property <string> weight;
             property <string> font;
-            font-family: "SF Pro Display " + weight;
+            font-family: "SF Pro Display " + weight + ", Apple Color Emoji";
         }
     }
 }

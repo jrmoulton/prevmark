@@ -45,8 +45,8 @@ fn main() -> Result<(), std::io::Error> {
     let mut text_properties = TextProperties::default();
     let mut elements_length = 0;
 
-    let buffer_string = String::new();  // This string will be used as a buffer so that only when we
-                                        // hit a hard break we push a new element to the screen
+    let buffer_string = String::new(); // This string will be used as a buffer so that only when we
+                                       // hit a hard break we push a new element to the screen
 
     for event in parser {
         match event {
@@ -173,7 +173,9 @@ fn main() -> Result<(), std::io::Error> {
     main_window_weak
         .unwrap()
         .set_TextElements(sixtyfps::ModelHandle::new(text_model));
-    main_window_weak.unwrap().set_elements_length(elements_length.into());
+    main_window_weak
+        .unwrap()
+        .set_elements_length(elements_length.into());
 
     main_window.run();
     Ok(())
